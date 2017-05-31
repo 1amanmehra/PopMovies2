@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="list_height">295dp</dimen>
+    <dimen name="list_height">300dp</dimen>
     <dimen name="text_large">32sp</dimen>
     <dimen name="text_small">16sp</dimen>
     <dimen name="padding">16dp</dimen>

@@ -7,13 +7,14 @@
     tools:context="com.example.android.popmovies.MainActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-      android:id="@+id/recycler_view" />
+        android:layout_height="match_parent" />
+
     <ProgressBar
+        android:id="@+id/progress_bar"
         android:layout_width="@dimen/progress_bar"
         android:layout_height="@dimen/progress_bar"
-        android:layout_gravity="center"
-        android:id="@+id/progress_bar"/>
+        android:layout_gravity="center" />
 
 </FrameLayout>

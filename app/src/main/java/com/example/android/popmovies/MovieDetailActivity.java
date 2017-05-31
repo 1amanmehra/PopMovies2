@@ -19,25 +19,25 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
         TextView mTitle = (TextView) findViewById(R.id.title);
-        ImageView mPoster    = (ImageView) findViewById(R.id.poster);
+        ImageView mPoster = (ImageView) findViewById(R.id.poster);
         TextView mVote = (TextView) findViewById(R.id.vote_average);
         TextView mDate = (TextView) findViewById(R.id.release_date);
         TextView mOverview = (TextView) findViewById(R.id.overview);
         String imgAddress;
-
         Intent intentThatStartedThisActivity = getIntent();
 
 
         if (intentThatStartedThisActivity != null) {
-            if (intentThatStartedThisActivity.hasExtra("title")) {
-                mTitle.setText(intentThatStartedThisActivity.getStringExtra("title"));
-                mVote.setText(intentThatStartedThisActivity.getStringExtra("voteAverage"));
-                        mDate.setText(intentThatStartedThisActivity.getStringExtra("releaseDate"));
-                mOverview.setText(intentThatStartedThisActivity.getStringExtra("overview"));
-                        imgAddress=intentThatStartedThisActivity.getStringExtra("moviePoster");
-                URL newUrl =NetworkUtils.buildImageUrl(imgAddress);
+            if (intentThatStartedThisActivity.hasExtra("Content")) {
+                Movies movie = intentThatStartedThisActivity.getParcelableExtra("Content");
+                mTitle.setText(movie.getTitle());
+                mVote.setText(movie.getVoteAverage());
+                mDate.setText(movie.getReleaseDate());
+                mOverview.setText(movie.getOverview());
+                imgAddress = movie.getMoviePoster();
+                URL newUrl = NetworkUtils.buildImageUrl(imgAddress);
                 Picasso.with(this).load(newUrl.toString()).into(mPoster);
             }
         }
     }
-    }
+}

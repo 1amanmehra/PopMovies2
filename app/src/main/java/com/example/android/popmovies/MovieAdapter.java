@@ -13,6 +13,8 @@ import com.squareup.picasso.Picasso;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static android.widget.ImageView.ScaleType.FIT_XY;
+
 //Class for RecyclerView.
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHolder> {
@@ -23,20 +25,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
     private ArrayList<Movies> mPosterItems;
     private Context mContext;
 
-   public interface ListItemClickListener{
+    public interface ListItemClickListener {
         void onClick(int itemclickIndex);
     }
 
-    public MovieAdapter(ArrayList posterList,ListItemClickListener clickHandler,Context context) {
+    public MovieAdapter(ArrayList posterList, ListItemClickListener clickHandler, Context context) {
         mPosterItems = posterList;
-        mClickHandler=clickHandler;
-        mContext=context;
+        mClickHandler = clickHandler;
+        mContext = context;
     }
+
     private Context getContext() {
         return mContext;
     }
 
-  @Override
+    @Override
     public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.list_item;
@@ -62,7 +65,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
     public void onBindViewHolder(NumberViewHolder holder, int position) {
         Log.d(TAG, "#" + position);
         Movies movieDetail;
-        movieDetail=mPosterItems.get(position);
+        movieDetail = mPosterItems.get(position);
         holder.bind(movieDetail.getMoviePoster());
     }
 
@@ -80,25 +83,26 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
     /**
      * Cache of the children views for a list item.
      */
-    class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
-             {
-                 ImageView posterImageView;
-                 public NumberViewHolder(View itemView) {
+    class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        ImageView posterImageView;
+
+        public NumberViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             posterImageView = (ImageView) itemView.findViewById(R.id.poster_view);
+            posterImageView.setScaleType(FIT_XY);
         }
 
 
         void bind(String imagePath) {
-            URL newUrl =NetworkUtils.buildImageUrl(imagePath);
+            URL newUrl = NetworkUtils.buildImageUrl(imagePath);
             Picasso.with(getContext()).load(newUrl.toString()).into(posterImageView);
         }
 
         public void onClick(final View view) {
-            int pos=getAdapterPosition();
+            int pos = getAdapterPosition();
             mClickHandler.onClick(pos);
-                     }
+        }
 
 
     }

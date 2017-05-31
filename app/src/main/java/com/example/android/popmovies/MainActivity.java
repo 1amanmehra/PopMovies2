@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements MovieAdapter.ListItemClickListener{
+public class MainActivity extends AppCompatActivity implements MovieAdapter.ListItemClickListener {
     ProgressBar mProgressBar;
     String mSort;
     private MovieAdapter mAdapter;
@@ -117,13 +117,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     }
 
     protected void fetchData(String SortBy) {
-        URL moviedbUrl = NetworkUtils.buildUrl(SortBy,movieApi);
+        URL moviedbUrl = NetworkUtils.buildUrl(SortBy, movieApi);
         new MovieQueryTask().execute(moviedbUrl);
     }
 
     protected void getJsonData(String jsonData) {
         Movies movieDetail;
-        ArrayList<Movies> arrayList =new ArrayList<>();
+        ArrayList<Movies> arrayList = new ArrayList<>();
         if (jsonData != null) {
             try {
                 JSONObject jsonObj = new JSONObject(jsonData);
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                     String overview = first.getString("overview");
                     String voteAverage = first.getString("vote_average");
                     String releaseDate = first.getString("release_date");
-                    movieDetail= new Movies(title,posterPath,overview,voteAverage,releaseDate);
+                    movieDetail = new Movies(title, posterPath, overview, voteAverage, releaseDate);
                     arrayList.add(movieDetail);
                 }
 
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
                 });
             }
         }
-        moviesList=arrayList;
+        moviesList = arrayList;
         mAdapter = new MovieAdapter(moviesList, this, this);
         mPosterList.setAdapter(mAdapter);
     }
@@ -164,15 +164,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     public void onClick(int position) {
         Context context = this;
         Class destinationClass = MovieDetailActivity.class;
-        Movies movie=moviesList.get(position);
+        Movies movie = moviesList.get(position);
         Intent intentToStartDetailActivity = new Intent(context, destinationClass);
-       Bundle extras = new Bundle();
-        extras.putString("title",movie.getTitle());
-        extras.putString("moviePoster",movie.getMoviePoster());
-        extras.putString("overview",movie.getOverview());
-        extras.putString("voteAverage",movie.getVoteAverage());
-        extras.putString("releaseDate",movie.getReleaseDate());
-        intentToStartDetailActivity.putExtras(extras);
+        intentToStartDetailActivity.putExtra("Content", movie);
         startActivity(intentToStartDetailActivity);
     }
 }
