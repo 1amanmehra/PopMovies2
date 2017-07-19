@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Pop Movies</string>
+    <string name="movie_api">[YOUR_API_KEY]</string>
+    <string name="review_caps">REVIEWS</string>
+    <string name="review_small">Review     </string>
+    <string name="trailer_caps">TRAILERS</string>
+    <string name="trailer_small">Trailer     </string>
+
+</resources>
