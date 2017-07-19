@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">Pop Movies</string>
-    <string name="movie_api">29202343111a38d738cfc6c07c6ae7c1</string>
-    <string name="review_caps">REVIEWS</string>
-    <string name="review_small">Review     </string>
-    <string name="trailer_caps">TRAILERS</string>
-    <string name="trailer_small">Trailer     </string>
-
-</resources>
