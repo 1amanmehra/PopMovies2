@@ -5,30 +5,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
-import java.net.URL;
 import java.util.ArrayList;
 
-import static android.widget.ImageView.ScaleType.FIT_XY;
+/**
+ * Created by aman on 18/7/17.
+ */
 
-//Class for RecyclerView.
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.NumberViewHolder> {
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHolder> {
-
-    private static final String TAG = MovieAdapter.class.getSimpleName();
+    private static final String TAG = VideoAdapter.class.getSimpleName();
     private final ListItemClickListener mClickHandler;
 
-    private ArrayList<Movies> mPosterItems;
+    private ArrayList<String> address;
     private Context mContext;
 
     public interface ListItemClickListener {
         void onClick(int itemclickIndex);
     }
 
-    public MovieAdapter(ListItemClickListener clickHandler, Context context) {
+    public ReviewAdapter(ListItemClickListener clickHandler, Context context) {
         mClickHandler = clickHandler;
         mContext = context;
     }
@@ -40,7 +37,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
     @Override
     public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.list_item;
+        int layoutIdForListItem = R.layout.review_item;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
@@ -61,9 +58,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
      */
     @Override
     public void onBindViewHolder(NumberViewHolder holder, int position) {
-        Movies movieDetail;
-        movieDetail = mPosterItems.get(position);
-        holder.bind(movieDetail.getMoviePoster());
+        String review = address.get(position);
+        String pos = Integer.toString(position + 1);
+        holder.bind(review, pos);
     }
 
     /**
@@ -74,28 +71,29 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
      */
     @Override
     public int getItemCount() {
-        if (null == mPosterItems) return 0;
-        return mPosterItems.size();
+        if (null == address) return 0;
+        return address.size();
     }
 
     /**
      * Cache of the children views for a list item.
      */
     class NumberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView posterImageView;
+        TextView reviewTextView;
+        TextView reviewNoTextView;
 
         public NumberViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            posterImageView = (ImageView) itemView.findViewById(R.id.poster_view);
-            posterImageView.setScaleType(FIT_XY);
+            reviewTextView = (TextView) itemView.findViewById(R.id.review);
+            reviewNoTextView = (TextView) itemView.findViewById(R.id.review_no);
         }
 
 
-        void bind(String imagePath) {
+        void bind(String imagePath, String position) {
             if (!imagePath.isEmpty()) {
-                URL newUrl = NetworkUtils.buildImageUrl(imagePath);
-                Picasso.with(getContext()).load(newUrl.toString()).into(posterImageView);
+                reviewTextView.setText(imagePath);
+                reviewNoTextView.setText(position);
             }
         }
 
@@ -106,8 +104,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
 
     }
 
-    public void setData(ArrayList<Movies> moviesData) {
-        mPosterItems = moviesData;
+    public void setData(ArrayList<String> moviesData) {
+        address = moviesData;
         notifyDataSetChanged();
     }
 }

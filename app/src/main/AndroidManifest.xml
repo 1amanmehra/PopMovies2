@@ -24,6 +24,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.popmovies.MainActivity" />
         </activity>
+
+        <provider
+            android:authorities="com.example.android.popmovies"
+            android:name="MovieProvider"></provider>
     </application>
 
 </manifest>

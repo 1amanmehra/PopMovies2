@@ -29,12 +29,13 @@ public class NetworkUtils {
 
     //This method builds the MovieDB URL for the HTTP request.
 
+
     public static URL buildUrl(String movieSort, String MOVIE_API_QUERY) {
         Uri.Builder builtUri = new Uri.Builder();
         builtUri.scheme(MOVIE_SCHEME)
                 .authority(MOVIE_BASE_URL)
                 .appendEncodedPath(MOVIE_PATH)
-                .appendPath(movieSort)
+                .appendEncodedPath(movieSort)
                 .appendQueryParameter("api_key", MOVIE_API_QUERY)
                 .build();
 
@@ -47,7 +48,6 @@ public class NetworkUtils {
 
         return url;
     }
-
     //This method builds the image URL for the image.
 
     public static URL buildImageUrl(String imagePath) {
